@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}Job List{% endblock title %}
+
+
+{% block body_content %}
+<style>
+    .card {
+        box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+    }
+
+    .avatar-md {
+        height: 5rem;
+        width: 5rem;
+    }
+
+    .fs-19 {
+        font-size: 19px;
+    }
+
+    .primary-link {
+        color: #314047;
+        -webkit-transition: all .5s ease;
+        transition: all .5s ease;
+    }
+
+    a {
+        color: #02af74;
+        text-decoration: none;
+    }
+
+    .bookmark-post .favorite-icon a,
+    .job-box.bookmark-post .favorite-icon a {
+        background-color: #da3746;
+        color: #fff;
+        border-color: danger;
+    }
+
+    .favorite-icon a {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        line-height: 30px;
+        text-align: center;
+        border: 1px solid #eff0f2;
+        border-radius: 6px;
+        color: rgba(173, 181, 189, .55);
+        -webkit-transition: all .5s ease;
+        transition: all .5s ease;
+    }
+
+
+    .candidate-list-box .favorite-icon {
+        position: absolute;
+        right: 22px;
+        top: 22px;
+    }
+
+    .fs-14 {
+        font-size: 14px;
+    }
+
+    .bg-soft-secondary {
+        background-color: rgba(116, 120, 141, .15) !important;
+        color: #74788d !important;
+    }
+
+    .mt-1 {
+        margin-top: 0.25rem !important;
+    }
+</style>
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
+    integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+<div style="padding-top: 15px; padding-bottom: 15px; margin: auto;">
+    <section class="section">
+        <div class="container">
+            
+
+
+            <!-- Search Bar Add Hobe Akhane -->
+
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    
+                    {% include './filtering.html' %}
+
+
+                    <div class="candidate-list">
+
+                        {% for job in job %}
+                        <!-- candidate-list-box bookmark-post card mt-4 -->
+                        <div class="candidate-list-box card mt-4">
+                            <div class="p-4 card-body">
+                                <div class="align-items-center row">
+                                    <div class="col-auto">
+                                        <div class="candidate-list-images">
+                                            <a href="#"><img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                    alt="" class="avatar-md img-thumbnail rounded-circle" /></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="candidate-list-content mt-3 mt-lg-0">
+                                            <h5 class="fs-19 mb-0">
+                                                <a class="primary-link" href="#">{{job.recruiter.company_name}}</a><span
+                                                    class="badge bg-success ms-1"><i
+                                                        class="mdi mdi-star align-middle"></i>4.8</span>
+                                            </h5>
+                                            <p class="text-muted mb-2">{{job.job_title}}</p>
+                                            <ul class="list-inline mb-0 text-muted">
+                                                <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{job.recruiter.company_address}}</li>
+                                                <li class="list-inline-item"><i class="mdi mdi-wallet"></i> {{job.salary}} BDT
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mt-2 mt-lg-0 d-flex flex-wrap align-items-start gap-1">
+                                            <span class="badge bg-soft-secondary fs-14 mt-1">Leader</span>
+                                            <span class="badge bg-soft-secondary fs-14 mt-1">Developer</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mt-2 mt-lg-0 d-flex flex-wrap align-items-start gap-1">
+                                            <a class="btn btn-primary" href="">Apply Job</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="favorite-icon">
+                                    <a href="#"><i class="mdi mdi-heart fs-18"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            {% include './pagination.html' %}
+
+
+        </div>
+    </section>
+</div>
+{% endblock body_content %}
