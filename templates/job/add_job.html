@@ -9,53 +9,63 @@
         {% csrf_token %}
         <div class="col-md-12">
             <label for="inputEmail4" class="form-label">Job Title</label>
-            <input type="text" class="form-control" id="inputEmail4" name="job_title">
+            <!-- <input type="text" class="form-control" id="inputEmail4" name="job_title" value="{{job.job_title}}"> -->
+            {{form.job_title}}
         </div>
         <div class="col-md-12">
             <label for="inputPassword4" class="form-label">Job Details</label>
-            <textarea name="job_details" id="" cols="30" rows="10" class="form-control"></textarea>
+            <!-- <textarea name="job_details" id="" cols="30" rows="10" class="form-control">{{job.job_details}}</textarea> -->
+            {{form.job_details}}
         </div>
 
         <div class="row g-3">
             <div class="col-4">
                 <label for="inputAddress" class="form-label">Vacancy</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="0" name="vacancy">
+                <!-- <input type="text" class="form-control" id="inputAddress" placeholder="0" name="vacancy" value="{{job.vacancy}}"> -->
+                {{form.vacancy}}
             </div>
             <div class="col-4">
                 <label for="inputAddress2" class="form-label">Salary</label>
-                <input type="text" class="form-control" id="inputAddress2" placeholder="Salary--" name="salary">
+                <!-- <input type="text" class="form-control" id="inputAddress2" placeholder="Salary--" name="salary" value="{{job.salary}}"> -->
+                {{form.salary}}
             </div>
             <div class="col-4">
                 <label for="inputAddress2" class="form-label">Employment Status</label>
-                <select name="employment_status" class="form-control" id="">
+                {{form.employment_status}}
+                <!-- <select name="employment_status" class="form-control" id="">
+                    {% if job.employment_status %}
+                    <option value="{{job.employment_status}}">{{job.employment_status}}</option>
+                    {% else %}
                     <option value="" disabled selected>-----</option>
+                    {% endif %}
                     <option value="Full Time">Full Time</option>
                     <option value="Part Time">Part Time</option>
                     <option value="Remote">Remote</option>
-                </select>
+                </select> -->
             </div>
         </div>
 
         <div class="row g-3">
             <div class="col-6">
                 <label for="inputAddress2" class="form-label">Gender Allow</label>
-                <select name="gender_allow" class="form-control" id="">
-                    <option value="" disabled selected>-----</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Both">Both</option>
-                </select>
+                {{form.gender_allow}}
             </div>
             <div class="col-6">
                 <label for="inputAddress2" class="form-label">Application Deadline</label>
-                <input type="date" class="form-control" id="inputAddress2" name="application_deadline">
+                {{form.application_deadline}}
             </div>
         </div>
         
-        
+        {% if job %}
+        <div class="col-12  g-3">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+        {% else %}
         <div class="col-12  g-3">
             <button type="submit" class="btn btn-primary">Add Job</button>
         </div>
+        {% endif %}
+        
     </form>
 </div>
 {% endblock body_content %}

@@ -94,6 +94,7 @@
         <a class="nav-link active ms-0" href="{% url 'profile' request.user.username %}" target="__blank">Profile</a>
         <a class="nav-link" href="{% url 'recruiter_job_list' request.user.username %}" target="__blank">Job List</a>
         <a class="nav-link" href="{% url 'add_job' %}" target="__blank">Add Job</a>
+        <a class="nav-link" href="{% url 'notification' request.user.username %}">Notification</a>
     </nav>
     <hr class="mt-0 mb-4">
 

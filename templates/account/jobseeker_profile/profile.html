@@ -91,11 +91,13 @@
 
     <!-- Account page navigation-->
     <nav class="nav nav-borders">
-        <a class="nav-link active ms-0" href="{% url 'profile' request.user.username %}" target="__blank">Profile</a>
-        <a class="nav-link" href="{% url 'profile' request.user.username %}" target="__blank">Applied Job</a>
-        <a class="nav-link" href="{% url 'profile' request.user.username %}" target="__blank">Saved Job</a>
+        <a class="nav-link active ms-0" href="{% url 'profile' request.user.username %}">Profile</a>
+        <a class="nav-link" href="{% url 'applied_job' request.user.username %}">Applied Job</a>
+        <a class="nav-link" href="{% url 'profile' request.user.username %}">Saved Job</a>
+        <a class="nav-link" href="{% url 'notification' request.user.username %}">Notification</a>
     </nav>
     <hr class="mt-0 mb-4">
+    {% block profile_body %}
     <form action="{% url 'jobseeker_profile_update' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
@@ -222,6 +224,7 @@
             </div>
         </div>
     </form>
+    {% endblock profile_body %}
 </div>
 
 {% endblock body_content %}

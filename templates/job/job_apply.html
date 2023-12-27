@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Job{% endblock title %}
+
+
+{% block body_content %}
+<div style="margin: auto;width: 80%; padding-top: 20px; padding-bottom: 20px;">
+    <form class="row g-3" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Job Seeker</label>
+                <input type="text" class="form-control" id="inputEmail4" name="user" value="{{request.user.display_name}}" readonly>
+                <!-- {{form.job_title}} -->
+            </div>
+            <!-- <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Job</label>
+                <input type="text" class="form-control" name="job_title" value="{{job.job_title}}" readonly>
+                {{form.job_details}}
+            </div> -->
+        </div>
+
+        <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">Job Title</label>
+            <textarea name="apply_skills" id="" cols="30" rows="5" class="form-control"></textarea>
+            <!-- {{form.job_title}} -->
+        </div>
+        <div class="col-md-12">
+            <label for="inputPassword4" class="form-label">Job Details</label>
+            <input type="file" class="form-control" id="inputEmail4" name="apply_cv">
+            <!-- {{form.job_details}} -->
+        </div>
+
+        <div class="col-12  g-3">
+            <button type="submit" class="btn btn-primary">Apply Job</button>
+        </div>
+
+    </form>
+</div>
+{% endblock body_content %}

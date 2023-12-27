@@ -1,3 +1,5 @@
+{% load static %}
+{% load notifications_tags %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #00ffcf94 !important;">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home' %}">Home</a>
@@ -11,6 +13,8 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'list_job' %}">Job List</a>
                 </li>
+
+                
 
                 {% if request.user.user_type == 'Recruiter' %}
                 <li class="nav-item">
@@ -32,6 +36,15 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'signin' %}">Sign In</a>
+                </li>
+                {% endif %}
+                
+                {% notifications_unread as unread_cound %}
+                
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <!-- <a class="nav-link" href="{% url 'add_job' %}">Add Job</a> -->
+                    <a class="nav-link fa fa-bell" href="{% url 'notification' request.user.username %}"></a>{% if unread_cound %}({% live_notify_badge %}){% else %}(0){% endif %}
                 </li>
                 {% endif %}
                 

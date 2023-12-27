@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Job{% endblock title %}
+
+
+{% block body_content %}
+<div style="margin: auto;width: 80%; padding-top: 20px; padding-bottom: 20px;">
+    <form class="row g-3" method="POST">
+        {% csrf_token %}
+        <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="inputEmail4" name="job_title">
+        </div>
+        <div class="col-md-12">
+            <label for="inputPassword4" class="form-label">Job Details</label>
+            <textarea name="job_details" id="" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-4">
+                <label for="inputAddress" class="form-label">Vacancy</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="0" name="vacancy">
+            </div>
+            <div class="col-4">
+                <label for="inputAddress2" class="form-label">Salary</label>
+                <input type="text" class="form-control" id="inputAddress2" placeholder="Salary--" name="salary">
+            </div>
+            <div class="col-4">
+                <label for="inputAddress2" class="form-label">Employment Status</label>
+                <select name="employment_status" class="form-control" id="">
+                    <option value="" disabled selected>-----</option>
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                    <option value="Remote">Remote</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-6">
+                <label for="inputAddress2" class="form-label">Gender Allow</label>
+                <select name="gender_allow" class="form-control" id="">
+                    <option value="" disabled selected>-----</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Both">Both</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <label for="inputAddress2" class="form-label">Application Deadline</label>
+                <input type="date" class="form-control" id="inputAddress2" name="application_deadline">
+            </div>
+        </div>
+        
+        
+        <div class="col-12  g-3">
+            <button type="submit" class="btn btn-primary">Add Job</button>
+        </div>
+    </form>
+</div>
+{% endblock body_content %}

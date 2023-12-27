@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('', include('account.urls')),
     path('', include('job.urls')),
+    path('inbox/notifications/', include('notifications.urls', namespace='notifications')),
 ]
 
 if settings.DEBUG:

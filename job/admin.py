@@ -6,3 +6,4 @@ class Job_Admin(admin.ModelAdmin):
     list_display = ['job_title', 'vacancy', 'employment_status', 'application_deadline']
 
 admin.site.register(Job, Job_Admin)
+admin.site.register(Job_Apply)

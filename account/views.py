@@ -113,6 +113,8 @@ def profile(request, username):
         return HttpResponse('Wrong Credential')
 
 def jobseeker_profile_update(request):
+    if request.user.user_type != 'JobSeeker':
+        return redirect('home')
     if request.method == 'POST':
         username = request.POST['username']
         first_name = request.POST['first_name']
@@ -154,6 +156,20 @@ def jobseeker_profile_update(request):
         
         messages.success(request, 'Update Sucessfull!')
         return redirect(request.META['HTTP_REFERER'])
+
+def applied_job(request, username):
+    user = Custom_User.objects.get(username=username)
+    job_application = Job_Apply.objects.filter(User=user)
+    return render(request, 'account/jobseeker_profile/applied_job.html', {'job_application': job_application})
+
+
+def notification(request, username):
+    user = Custom_User.objects.get(username=username)
+    if user.user_type == 'JobSeeker':
+        return render(request, 'account/jobseeker_profile/notification.html')
+    elif user.user_type == 'Recruiter':
+        return render(request, 'account/recruiter_profile/notification.html')
+    
 
 
 def recruiter_profile_update(request):

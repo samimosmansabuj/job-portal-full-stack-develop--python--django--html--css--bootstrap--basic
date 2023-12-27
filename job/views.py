@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from account.models import Recruiter_Profile
+from account.models import *
+from .forms import Job_Form
+from notifications.signals import notify
 from .models import *
 
 # Create your views here.
 def add_job(request):
+    form = Job_Form()
+    
     if request.method == 'POST':
         user = request.user
         if user.user_type != 'Recruiter':
@@ -12,33 +16,74 @@ def add_job(request):
             return redirect('profile', username=user.username)
         
         recruiter = Recruiter_Profile.objects.get(user=user)
-        job_title = request.POST['job_title']
-        job_details = request.POST['job_details']
-        vacancy = request.POST['vacancy']
-        salary = request.POST['salary']
-        employment_status = request.POST['employment_status']
-        gender_allow = request.POST['gender_allow']
-        application_deadline = request.POST['application_deadline']
         
-        job = Job.objects.create(
-            recruiter = recruiter,
-            job_title = job_title,
-            job_details = job_details,
-            vacancy = vacancy,
-            salary = salary,
-            employment_status = employment_status,
-            gender_allow = gender_allow,
-            application_deadline = application_deadline,
-        )
-        messages.success(request, 'Add a New Job Successfull!')
-        return redirect('profile', username=user.username)
+        data = Job_Form(request.POST)
+        if data.is_valid():
+            job = data.save()
+            job.recruiter = recruiter
+            job.save()
+            messages.success(request, 'Add a New Job Successfull!')
+            
+            job_seeker = Custom_User.objects.filter(user_type='JobSeeker')
+            notify.send(user, recipient=job_seeker, verb="Add New Job")
+            
+            return redirect('profile', username=user.username)
         
-    return render(request, 'job/add_job.html')
+    return render(request, 'job/add_job.html', {'form': form})
+
+
+
+def update_job(request, slug):
+    job = Job.objects.get(slug=slug)
+    form = Job_Form(instance=job)
+    context = {'job': job, 'form': form}
+    
+    if request.method == 'POST':
+        user = request.user
+        if user.user_type != 'Recruiter':
+            messages.warning(request, 'Only Recruiter are allowed to add job!')
+            return redirect('profile', username=user.username)
+
+        recruiter = Recruiter_Profile.objects.get(user=user)
+        if job.recruiter != recruiter:
+            messages.warning(request, 'You are not authorize for update this job!')
+            return redirect('profile', username=user.username)
+    
+        data = Job_Form(request.POST, instance=job)
+        if data.is_valid():
+            data.save()
+            messages.success(request, 'Update Job Successfull!')
+            return redirect('profile', username=user.username)
+        
+    return render(request, 'job/add_job.html', context)
 
 
 def list_job(request):
     job = Job.objects.all()
     context = {'job': job}
-    return render(request, 'job/job_list.html', context)
+    return render(request, 'job/job_list/job_list.html', context)
 
+from django.shortcuts import get_list_or_404
+
+def job_apply(request, id):
+    if request.user.user_type != 'JobSeeker':
+        return redirect('profile', username=user.username)
+    
+    job = Job.objects.get(id=id)
+    user = request.user
+    if request.method == 'POST':
+        apply_skills = request.POST['apply_skills']
+        apply_cv = request.FILES.get('apply_cv')
+        
+        application = Job_Apply.objects.create(
+            User=user,
+            job=job,
+            skills=apply_skills,
+            apply_resume_cv=apply_cv,
+        )
+        application.save()
+        messages.success(request, 'Application Apply Successfully!')
+        return redirect('profile', username=user.username)
+    
+    return render(request, 'job/job_apply.html', {'job': job})
 
