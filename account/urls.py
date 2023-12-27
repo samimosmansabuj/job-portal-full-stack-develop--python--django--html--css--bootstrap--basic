@@ -15,5 +15,6 @@ urlpatterns = [
     path('recruiter/update/', recruiter_profile_update, name='recruiter_profile_update'),
     
     #job seeker
-    path('applied-job/<username>/', applied_job, name='applied_job')
+    path('applied-job/<username>/', applied_job, name='applied_job'),
+    path('saved-job/<username>/', saved_job, name='saved_job'),
 ]

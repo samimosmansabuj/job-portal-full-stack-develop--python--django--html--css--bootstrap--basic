@@ -162,6 +162,15 @@ def applied_job(request, username):
     job_application = Job_Apply.objects.filter(User=user)
     return render(request, 'account/jobseeker_profile/applied_job.html', {'job_application': job_application})
 
+def saved_job(request, username):
+    user = Custom_User.objects.get(username=username)
+    saved_job = Saved_Job.objects.filter(user=user)
+    context = {'saved_job': saved_job}
+    saved_job_list = []
+    for saved_job in saved_job:
+        saved_job_list.append(saved_job.job)
+    context['saved_job_list'] = saved_job_list
+    return render(request, 'account/jobseeker_profile/saved_job.html', context)
 
 def notification(request, username):
     user = Custom_User.objects.get(username=username)

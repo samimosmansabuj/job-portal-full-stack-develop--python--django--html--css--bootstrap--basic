@@ -7,3 +7,4 @@ class Job_Admin(admin.ModelAdmin):
 
 admin.site.register(Job, Job_Admin)
 admin.site.register(Job_Apply)
+admin.site.register(Saved_Job)

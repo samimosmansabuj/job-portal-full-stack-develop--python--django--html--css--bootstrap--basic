@@ -1,6 +1,7 @@
 {% extends './profile.html' %}
 
 {% block profile_body %}
+{% if job_application %}
 <table class="table">
   <thead>
     <tr>
@@ -10,7 +11,6 @@
     </tr>
   </thead>
   <tbody>
-    
     {% for job_application in job_application %}
     <tr>
       <th scope="row">{{job_application.job.job_title}}</th>
@@ -18,7 +18,12 @@
       <td style="width: 10%;">Cancel</td>
     </tr>
     {% endfor %}
-    
   </tbody>
 </table>
+{% else %}
+<div style="text-align: center;">
+  <h1 style="text-align: center; padding: 20px;">No Saved Job</h1>
+  <a href="{% url 'list_job' %}" class="btn btn-primary" style="margin-bottom: 20px;">GO To Job List</a>
+</div>
+{% endif %}
 {% endblock profile_body %}

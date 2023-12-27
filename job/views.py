@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from account.models import *
-from .forms import Job_Form
+from django.shortcuts import get_list_or_404
 from notifications.signals import notify
+from django.contrib import messages
+from .forms import Job_Form
+from account.models import *
 from .models import *
 
 # Create your views here.
@@ -60,10 +61,16 @@ def update_job(request, slug):
 
 def list_job(request):
     job = Job.objects.all()
-    context = {'job': job}
+    user_save_job_id_list = Saved_Job.objects.filter(user=request.user).values_list('job__id', flat=True)
+    context = {'job': job, 'user_save_job_id_list': user_save_job_id_list}
     return render(request, 'job/job_list/job_list.html', context)
 
-from django.shortcuts import get_list_or_404
+
+def job_view(request, slug):
+    job = Job.objects.get(slug=slug)
+    context = {'job': job}
+    return render(request, 'job/job_view.html', context)
+
 
 def job_apply(request, id):
     if request.user.user_type != 'JobSeeker':

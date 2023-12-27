@@ -87,14 +87,20 @@
     {% endfor %}
     {% endif %}
 
-
+    {% url 'profile' request.user.username as profile_url %}
+    {% url 'applied_job' request.user.username as applied_job_url %}
+    {% url 'saved_job' request.user.username as saved_job_url %}
+    {% url 'notification' request.user.username as notification_url %}
 
     <!-- Account page navigation-->
     <nav class="nav nav-borders">
-        <a class="nav-link active ms-0" href="{% url 'profile' request.user.username %}">Profile</a>
-        <a class="nav-link" href="{% url 'applied_job' request.user.username %}">Applied Job</a>
-        <a class="nav-link" href="{% url 'profile' request.user.username %}">Saved Job</a>
-        <a class="nav-link" href="{% url 'notification' request.user.username %}">Notification</a>
+        <a class="nav-link {% if request.path == profile_url %}active ms-0{% endif %}" href="{{profile_url}}">Profile</a>
+
+        <a class="nav-link {% if request.path == applied_job_url %}active ms-0{% endif %}" href="{{applied_job_url}}">Applied Job</a>
+
+        <a class="nav-link {% if request.path == saved_job_url %}active ms-0{% endif %}" href="{{saved_job_url}}">Saved Job</a>
+
+        <a class="nav-link {% if request.path == notification_url %}active ms-0{% endif %}" href="{{notification_url}}">Notification</a>
     </nav>
     <hr class="mt-0 mb-4">
     {% block profile_body %}

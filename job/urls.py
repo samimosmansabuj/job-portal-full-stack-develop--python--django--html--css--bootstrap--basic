@@ -5,5 +5,6 @@ urlpatterns = [
     path('add-job/', add_job, name='add_job'),
     path('update-job/<slug>/', update_job, name='update_job'),
     path('job-all/', list_job, name='list_job'),
+    path('job-view/<slug>/', job_view, name='job_view'),
     path('job-apply/<int:id>/', job_apply, name='job_apply'),
 ]

@@ -1,0 +1,146 @@
+{% extends './profile.html' %}
+
+{% block profile_body %}
+<style>
+    .card {
+        box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+    }
+
+    .avatar-md {
+        height: 5rem;
+        width: 5rem;
+    }
+
+    .fs-19 {
+        font-size: 19px;
+    }
+
+    .primary-link {
+        color: #314047;
+        -webkit-transition: all .5s ease;
+        transition: all .5s ease;
+    }
+
+    a {
+        color: #02af74;
+        text-decoration: none;
+    }
+
+    .bookmark-post .favorite-icon a,
+    .job-box.bookmark-post .favorite-icon a {
+        background-color: #da3746;
+        color: #fff;
+        border-color: danger;
+    }
+
+    .favorite-icon a {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        line-height: 30px;
+        text-align: center;
+        border: 1px solid #eff0f2;
+        border-radius: 6px;
+        color: rgba(173, 181, 189, .55);
+        -webkit-transition: all .5s ease;
+        transition: all .5s ease;
+    }
+
+
+    .candidate-list-box .favorite-icon {
+        position: absolute;
+        right: 22px;
+        top: 22px;
+    }
+
+    .fs-14 {
+        font-size: 14px;
+    }
+
+    .bg-soft-secondary {
+        background-color: rgba(116, 120, 141, .15) !important;
+        color: #74788d !important;
+    }
+
+    .mt-1 {
+        margin-top: 0.25rem !important;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+
+
+        <div class="candidate-list">
+            {% if saved_job_list %}
+            {% for job in saved_job_list %}
+            <!-- candidate-list-box bookmark-post card mt-4 -->
+            <div class="candidate-list-box card mt-4">
+                <div class="p-4 card-body">
+
+                    <div class="align-items-center row">
+
+                        <div class="col-lg-1">
+                            <div class="candidate-list-images">
+                                <a href="#"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
+                                        class="avatar-md img-thumbnail rounded-circle"
+                                        style="width: 100%; height:auto" /></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="candidate-list-content mt-3 mt-lg-0">
+                                <h5 class="fs-19 mb-0">
+                                    <a class="primary-link" href="#">{{job.recruiter.company_name}}</a><span
+                                        class="badge bg-success ms-1"><i
+                                            class="mdi mdi-star align-middle"></i>4.8</span>
+                                </h5>
+                                <p class="text-muted mb-2">{{job.job_title}}</p>
+                                <ul class="list-inline mb-0 text-muted">
+                                    <li class="list-inline-item"><i class="mdi mdi-map-marker"></i>
+                                        {{job.recruiter.company_address}}</li>
+                                    <li class="list-inline-item"><i class="mdi mdi-wallet"></i>
+                                        {{job.salary}} BDT
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="mt-2 mt-lg-0 d-flex flex-wrap align-items-start gap-1">
+                                <span class="badge bg-soft-secondary fs-14 mt-1">Last Date:
+                                    {{job.application_deadline}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="mt-2 mt-lg-0 d-flex flex-wrap align-items-start gap-1">
+                                <a class="btn btn-primary" href="{% url 'job_apply' job.id %}">Apply Job</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <div class="mt-2 mt-lg-0 d-flex flex-wrap align-items-start gap-1">
+
+                                <a href="{% url 'add_saved_job' job.id %}">
+
+                                    <i class="fa-solid fa-heart" style="font-size:24px"></i>
+
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div style="text-align: center;">
+                <h1 style="text-align: center; padding: 20px;">No Saved Job</h1>
+                <a href="{% url 'list_job' %}" class="btn btn-primary" style="margin-bottom: 20px;">GO To Job List</a>
+            </div>
+            {% endif %}
+
+
+        </div>
+    </div>
+</div>
+{% endblock profile_body %}

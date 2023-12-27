@@ -24,6 +24,8 @@ urlpatterns = [
     path('', include('home.urls')),
     path('', include('account.urls')),
     path('', include('job.urls')),
+    path('', include('jobseeker.urls')),
+    path('', include('recruiter.urls')),
     path('inbox/notifications/', include('notifications.urls', namespace='notifications')),
 ]
 

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Job{% endblock title %}
+
+
+{% block body_content %}
+<div style="margin: auto;width: 80%; padding-top: 20px; padding-bottom: 20px;">
+    <section style="background-color: #f4f5f7;">
+        <div class="container p-5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-lg-12 mb-4 mb-lg-0">
+                    <div class="card mb-3" style="border-radius: .5rem;">
+                        <div class="row g-0">
+                            <div class="col-md-4 gradient-custom text-center text-white"
+                                style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem; background-color: #f9be72;">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                    alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                                <h5 style="color: black;">{{job.recruiter.company_name}}</h5>
+                                <p style="color: black;">Software Company</p>
+                            </div>
+                            
+                            <div class="col-md-8" style="background-color: #424242; color: white;">
+                                <div class="card-body p-4">
+                                    <h6>Job Title: {{job.job_title}}</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        <div class="col-4 mb-2">
+                                            <h6>Vacancy</h6>
+                                            <p class="text-muted" style="color: #b0c8cd !important;">{{job.vacancy}}</p>
+                                        </div>
+                                        <div class="col-4 mb-2">
+                                            <h6>Salary</h6>
+                                            <p class="text-muted" style="color: #b0c8cd !important;">{{job.salary}}</p>
+                                        </div>
+                                        <div class="col-4 mb-2">
+                                            <h6>Job Type</h6>
+                                            <p class="text-muted" style="color: #b0c8cd !important;">{{job.employment_status}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row pt-1">
+                                        <div class="col-4 mb-2">
+                                            <h6>Gender Allow</h6>
+                                            <p class="text-muted" style="color: #b0c8cd !important;">{{job.gender_allow}}</p>
+                                        </div>
+                                        <div class="col-4 mb-2">
+                                            <h6>Application Deadline</h6>
+                                            <p class="text-muted" style="color: #b0c8cd !important;">{{job.application_deadline}}</p>
+                                        </div>
+                                        <div class="col-4 mb-2">
+                                            <h6>Published Date</h6>
+                                            <p class="text-muted" style="color: #b0c8cd !important;">{{job.published_date}}</p>
+                                        </div>
+                                    </div>
+
+                                    <h6>Job Details</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        <div class="col-12 mb-2">
+                                            <p class="text-muted" style="color: #d0dddf !important;">{{job.job_details}}</p> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a href="{% url 'job_apply' job.id %}" class="btn btn-primary">Apply Job</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="d-flex justify-content-start">
+                                                <a href="#!">
+                                                    <i class="fab fa-facebook-f fa-lg me-3"></i>
+                                                </a>
+                                                <a href="#!">
+                                                    <i class="fab fa-twitter fa-lg me-3"></i>
+                                                </a>
+                                                <a href="#!">
+                                                    <i class="fab fa-instagram fa-lg"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock body_content %}

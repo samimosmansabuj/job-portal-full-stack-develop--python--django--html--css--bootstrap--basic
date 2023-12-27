@@ -53,3 +53,11 @@ class Job_Apply(models.Model):
         return self.User.username+' Application For '+self.job.job_title
 
 
+class Saved_Job(models.Model):
+    user = models.ForeignKey(Custom_User, on_delete=models.CASCADE, blank=True, null=True, related_name="saved_job_user")
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, blank=True, null=True)
+    added_date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return f'{self.user.first_name} Saved {self.job.job_title} Job!'
+

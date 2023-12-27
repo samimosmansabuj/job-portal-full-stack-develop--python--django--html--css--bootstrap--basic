@@ -78,7 +78,7 @@
 <div style="padding-top: 15px; padding-bottom: 15px; margin: auto;">
     <section class="section">
         <div class="container">
-            
+
 
 
             <!-- Search Bar Add Hobe Akhane -->
@@ -87,8 +87,20 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    
+
                     {% include './filtering.html' %}
+
+
+                    {% if messages %}
+                    {% for messages in messages %}
+                    <div class="alert alert-{{messages.tags}} alert-dismissible fade show" role="alert">
+                        <strong>Dear User!</strong> {{messages}}.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
 
 
                     <div class="candidate-list">
@@ -102,27 +114,32 @@
 
                                     <div class="col-lg-1">
                                         <div class="candidate-list-images">
-                                            <a href="#"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-md img-thumbnail rounded-circle" style="width: 100%; height:auto" /></a>
+                                            <a href="#"><img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                    alt="" class="avatar-md img-thumbnail rounded-circle"
+                                                    style="width: 100%; height:auto" /></a>
                                         </div>
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="candidate-list-content mt-3 mt-lg-0">
                                             <h5 class="fs-19 mb-0">
-                                                <a class="primary-link" href="#">{{job.recruiter.company_name}}</a><span
+                                                <a class="primary-link" href="{% url 'job_view' job.slug %}">{{job.recruiter.company_name}}</a><span
                                                     class="badge bg-success ms-1"><i
                                                         class="mdi mdi-star align-middle"></i>4.8</span>
                                             </h5>
                                             <p class="text-muted mb-2">{{job.job_title}}</p>
                                             <ul class="list-inline mb-0 text-muted">
-                                                <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{job.recruiter.company_address}}</li>
-                                                <li class="list-inline-item"><i class="mdi mdi-wallet"></i> {{job.salary}} BDT
+                                                <li class="list-inline-item"><i class="mdi mdi-map-marker"></i>
+                                                    {{job.recruiter.company_address}}</li>
+                                                <li class="list-inline-item"><i class="mdi mdi-wallet"></i>
+                                                    {{job.salary}} BDT
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="mt-2 mt-lg-0 d-flex flex-wrap align-items-start gap-1">
-                                            <span class="badge bg-soft-secondary fs-14 mt-1">Last Date: {{job.application_deadline}}</span>
+                                            <span class="badge bg-soft-secondary fs-14 mt-1">Last Date:
+                                                {{job.application_deadline}}</span>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
@@ -132,14 +149,22 @@
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="mt-2 mt-lg-0 d-flex flex-wrap align-items-start gap-1">
-                                            
-                                                <a href="#"><i class="mdi mdi-heart fs-18"></i></a>
-                                            
+
+                                            <a href="{% url 'add_saved_job' job.id %}">
+
+                                                {% if job.id in user_save_job_id_list %}
+                                                <i class="fa-solid fa-heart" style="font-size:24px"></i>
+                                                {% else %}
+                                                <i class="fa-regular fa-heart" style="font-size:24px"></i>
+                                                {% endif %}
+
+                                            </a>
+
                                         </div>
                                     </div>
                                 </div>
 
-                                {% comment %}  {% endcomment %}
+
                             </div>
                         </div>
                         {% endfor %}
